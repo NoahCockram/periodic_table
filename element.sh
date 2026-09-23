@@ -2,7 +2,7 @@
 # This script is designed to return a description of an element when given an atomic number, atomic symbol or element name as an argument.
 
 # Replace this with whatever the name for your server and username are, and to enter passwords without prompt if need be.
-PSQL="psql --username=USERNAME --dbname=periodic_table -t --no-align -c"
+PSQL="psql --username=USERNAME --dbname=periodic_table --no-align -t -c"
 
 if [[ -z $1 ]] # If the first argument doesn't exist, then the user hasn't provided an element that they want to search for. Therefore program terminates.
 then
