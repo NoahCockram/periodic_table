@@ -16,17 +16,12 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+
 DROP DATABASE periodic_table;
---
--- Name: periodic_table; Type: DATABASE; Schema: -; Owner: postgres
---
 
-CREATE DATABASE periodic_table WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'C.UTF-8' LC_CTYPE = 'C.UTF-8';
+CREATE DATABASE periodic_table;
 
-
-ALTER DATABASE periodic_table OWNER TO postgres;
-
-\connect periodic_table
+\c periodic_table
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -43,49 +38,27 @@ SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
---
--- Name: elements; Type: TABLE; Schema: public; Owner: freecodecamp
---
-
 CREATE TABLE public.elements (
     atomic_number integer NOT NULL,
     symbol character varying(2) NOT NULL,
     name character varying(40) NOT NULL
 );
 
-
-ALTER TABLE public.elements OWNER TO freecodecamp;
-
---
--- Name: properties; Type: TABLE; Schema: public; Owner: freecodecamp
---
-
 CREATE TABLE public.properties (
     atomic_number integer NOT NULL,
     atomic_mass real NOT NULL,
-    melting_point_celsius numeric NOT NULL,
-    boiling_point_celsius numeric NOT NULL,
+    melting_point_celsius numeric,
+    boiling_point_celsius numeric,
     type_id integer NOT NULL
 );
 
-
-ALTER TABLE public.properties OWNER TO freecodecamp;
-
---
--- Name: types; Type: TABLE; Schema: public; Owner: freecodecamp
---
 
 CREATE TABLE public.types (
     type_id integer NOT NULL,
     type character varying(30) NOT NULL
 );
 
-
-ALTER TABLE public.types OWNER TO freecodecamp;
-
---
--- Data for Name: elements; Type: TABLE DATA; Schema: public; Owner: freecodecamp
---
+------ inserting into elements table
 
 INSERT INTO public.elements VALUES (1, 'H', 'Hydrogen');
 INSERT INTO public.elements VALUES (4, 'Be', 'Beryllium');
@@ -207,9 +180,7 @@ INSERT INTO public.elements VALUES (117, 'Ts', 'Tennessine');
 INSERT INTO public.elements VALUES (118, 'Og', 'Oganesson');
 
 
---
--- Data for Name: properties; Type: TABLE DATA; Schema: public; Owner: freecodecamp
---
+------ inserting into properties table
 
 INSERT INTO public.properties VALUES (1, 1.008, -259.1, -252.9, 1);
 INSERT INTO public.properties VALUES (2, 4.0026, -272.2, -269, 1);
@@ -330,19 +301,13 @@ INSERT INTO public.properties VALUES (116, 293, NULL, NULL, 2);
 INSERT INTO public.properties VALUES (117, 294, NULL, NULL, 1);
 INSERT INTO public.properties VALUES (118, 294, NULL, NULL, 1);
 
-
---
--- Data for Name: types; Type: TABLE DATA; Schema: public; Owner: freecodecamp
---
+------ inserting into types table
 
 INSERT INTO public.types VALUES (1, 'nonmetal');
 INSERT INTO public.types VALUES (2, 'metal');
 INSERT INTO public.types VALUES (3, 'metalloid');
 
 
---
--- Name: elements elements_atomic_number_key; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
---
 
 ALTER TABLE ONLY public.elements
     ADD CONSTRAINT elements_atomic_number_key UNIQUE (atomic_number);
